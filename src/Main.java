@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Main {
 
     private static ArrayList<Game> gameList = new ArrayList<>();
+    private static int total_elo = 0;
+    private static int elo_between_ranks = 250;
 
 
     public static void main(String[] args) throws ClassNotFoundException, FileNotFoundException, IOException{
@@ -31,6 +33,11 @@ public class Main {
                     Game game = createGame();
                     if(game != null)
                         gameList.add(game);
+                        total_elo += game.getElo();
+                        if (game.isRanked_up() && elo_between_ranks == 250)
+                            elo_between_ranks = total_elo;
+                        else if (game.isRanked_up())
+                            elo_between_ranks = (elo_between_ranks + total_elo) / 2;
                     break;
                 case 3:
                     try {
@@ -114,6 +121,7 @@ public class Main {
         File file = new File("savegame.bin");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
         objectOutputStream.writeObject(gameList);
+        objectOutputStream.writeInt(total_elo);
     }
 
     private static void loadGameList() throws IOException {
@@ -121,6 +129,7 @@ public class Main {
             File file = new File("savegame.bin");
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             gameList = (ArrayList<Game>) objectInputStream.readObject();
+            total_elo = objectInputStream.readInt();
         } catch (FileNotFoundException e) {
             System.out.println("Warning: \"savegame.bin\" file not found.");
         } catch (ClassNotFoundException e) {

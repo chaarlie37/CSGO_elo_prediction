@@ -90,6 +90,22 @@ public class Game implements Serializable {
         return opponent - myteam;
     }
 
+    public int getElo() {
+        return elo;
+    }
+
+    public void setElo(int elo) {
+        this.elo = elo;
+    }
+
+    public boolean isRanked_up() {
+        return ranked_up;
+    }
+
+    public void setRanked_up(boolean ranked_up) {
+        this.ranked_up = ranked_up;
+    }
+
     @Override
     public String toString() {
         return  "------------------------------------\n" +
