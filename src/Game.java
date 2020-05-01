@@ -110,8 +110,8 @@ public class Game implements Serializable {
     public String toString() {
         return  "------------------------------------\n" +
                 "[YOUR TEAM] " + myteam_score + " - " + opponent_score + " [OPPONENT TEAM]\n" +
-                "YOUR TEAM ELO: \n" + Arrays.toString(myteam_elo) + "\n" +
-                "OPPONENT TEAM ELO: \n" + Arrays.toString(opponent_elo) + "\n" +
+                "YOUR TEAM RANKS: \n" + Arrays.toString(myteam_elo) + "\n" +
+                "OPPONENT TEAM RANKS: \n" + Arrays.toString(opponent_elo) + "\n" +
                 "YOUR MVPs: " + mvp + "\n" +
                 "YOUR RANK: " + current_rank + "\n" +
                 "ELO: " + elo + "\n" +

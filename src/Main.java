@@ -61,12 +61,12 @@ public class Main {
         System.out.println("Introduce the final score. Write your team's and your opponent's rounds separated with a space. For example: 16 9.");
         myteam_score = sc.nextInt();
         opponent_score = sc.nextInt();
-        System.out.println("Introduce your team elo separated by spaces (not including yours):");
+        System.out.println("Introduce your team ranks separated by spaces (not including yours):");
         printEloList();
         for (int i = 0; i<4; i++){
             myteam_elo[i] = sc.nextInt();
         }
-        System.out.println("Introduce the opponent team elo separated by spaces:");
+        System.out.println("Introduce the opponent team ranks separated by spaces:");
         printEloList();
         for (int i = 0; i<5; i++){
             opponent_elo[i] = sc.nextInt();
