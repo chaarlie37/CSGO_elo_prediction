@@ -28,6 +28,8 @@ public class Main {
             switch (option){
                 case 1 :
                     showGames();
+                    System.out.println("TOTAL ELO: " + total_elo);
+                    System.out.println("ELO BETWEEN RANKS: " + elo_between_ranks);
                     break;
                 case 2:
                     Game game = createGame();
@@ -91,7 +93,7 @@ public class Main {
             return game;
         }else{
             System.out.println("Try again. ");
-            return null;
+            return createGame();
         }
     }
 
@@ -118,18 +120,20 @@ public class Main {
     }
 
     private static void saveGameList() throws IOException {
-        File file = new File("savegame.bin");
+        File file = new File("savegame1.bin");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
         objectOutputStream.writeObject(gameList);
-        objectOutputStream.writeInt(total_elo);
+        objectOutputStream.writeObject(total_elo);
+        objectOutputStream.writeObject(elo_between_ranks);
     }
 
     private static void loadGameList() throws IOException {
         try {
-            File file = new File("savegame.bin");
+            File file = new File("savegame1.bin");
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             gameList = (ArrayList<Game>) objectInputStream.readObject();
-            total_elo = objectInputStream.readInt();
+            total_elo = (Integer) objectInputStream.readObject();
+            elo_between_ranks = (Integer) objectInputStream.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("Warning: \"savegame.bin\" file not found.");
         } catch (ClassNotFoundException e) {
