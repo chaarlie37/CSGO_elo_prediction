@@ -33,13 +33,15 @@ public class Main {
                     break;
                 case 2:
                     Game game = createGame();
-                    if(game != null)
-                        gameList.add(game);
-                        total_elo += game.calculateElo();
-                        if (game.isRanked_up() && elo_between_ranks == 250)
-                            elo_between_ranks = total_elo;
-                        else if (game.isRanked_up())
-                            elo_between_ranks = (elo_between_ranks + total_elo) / 2;
+                    gameList.add(game);
+                    total_elo += game.calculateElo();
+                    if (game.isRanked_up() && elo_between_ranks == 250)
+                        elo_between_ranks = total_elo;
+                    else if (game.isRanked_up()){
+                        elo_between_ranks = (elo_between_ranks + total_elo) / 2;
+                        total_elo = 0;
+                        System.out.println("Ranked up. Total elo reset to 0.");
+                    }
                     break;
                 case 3:
                     try {
