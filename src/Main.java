@@ -6,7 +6,7 @@ public class Main {
 
     private static ArrayList<Game> gameList = new ArrayList<>();
     private static int total_elo = 0;
-    private static int elo_between_ranks = 250;
+    private static int elo_between_ranks = 136;
 
 
     public static void main(String[] args) throws ClassNotFoundException, FileNotFoundException, IOException{
@@ -35,7 +35,7 @@ public class Main {
                     Game game = createGame();
                     if(game != null)
                         gameList.add(game);
-                        total_elo += game.getElo();
+                        total_elo += game.calculateElo();
                         if (game.isRanked_up() && elo_between_ranks == 250)
                             elo_between_ranks = total_elo;
                         else if (game.isRanked_up())
@@ -43,12 +43,13 @@ public class Main {
                     break;
                 case 3:
                     try {
+                        System.out.println("Saving...");
                         saveGameList();
                     }catch (IOException e){
                         System.err.println("An error has occurred when saving the game list. Error code: 101");
                     }
             }
-        }while (option == 1 || option == 2);
+        }while (option != 3);
 
     }
 
@@ -120,7 +121,7 @@ public class Main {
     }
 
     private static void saveGameList() throws IOException {
-        File file = new File("savegame1.bin");
+        File file = new File("savegame4.bin");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
         objectOutputStream.writeObject(gameList);
         objectOutputStream.writeObject(total_elo);
@@ -129,7 +130,7 @@ public class Main {
 
     private static void loadGameList() throws IOException {
         try {
-            File file = new File("savegame1.bin");
+            File file = new File("savegame4.bin");
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             gameList = (ArrayList<Game>) objectInputStream.readObject();
             total_elo = (Integer) objectInputStream.readObject();

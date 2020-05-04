@@ -12,7 +12,6 @@ public class Game implements Serializable {
     private int mvp;
     private int current_rank;
     private boolean ranked_up;
-    private int elo;
 
     public Game(int myteam_score, int opponent_score, int[] myteam_elo, int[] opponent_elo, int mvp, int current_rank, boolean ranked_up) {
         this.myteam_score = myteam_score;
@@ -22,7 +21,6 @@ public class Game implements Serializable {
         this.mvp = mvp;
         this.current_rank = current_rank;
         this.ranked_up = ranked_up;
-        calculateElo();
     }
 
     public int getMyteam_score() {
@@ -73,8 +71,8 @@ public class Game implements Serializable {
         this.current_rank = current_rank;
     }
 
-    public void calculateElo(){
-        elo = ((5 * (myteam_score - opponent_score)) / 3) + teamsElo() + mvp;
+    public int calculateElo(){
+        return  ((5 * (myteam_score - opponent_score)) / 3) + teamsElo() + mvp;
     }
 
     public int teamsElo(){
@@ -90,13 +88,6 @@ public class Game implements Serializable {
         return opponent - myteam;
     }
 
-    public int getElo() {
-        return elo;
-    }
-
-    public void setElo(int elo) {
-        this.elo = elo;
-    }
 
     public boolean isRanked_up() {
         return ranked_up;
@@ -114,7 +105,7 @@ public class Game implements Serializable {
                 "OPPONENT TEAM RANKS: \n" + Arrays.toString(opponent_elo) + "\n" +
                 "YOUR MVPs: " + mvp + "\n" +
                 "YOUR RANK: " + current_rank + "\n" +
-                "ELO: " + elo + "\n" +
+                "ELO: " + calculateElo() + "\n" +
                 "------------------------------------\n";
     }
 }
